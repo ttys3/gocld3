@@ -14,10 +14,7 @@ Documentation is available on [GoDoc](https://godoc.org/github.com/ttys3/gocld3/
 ### Example
 
 ```go
-	cld, err := cld3.NewDefault()
-	if err != nil {
-		fmt.Println("whoops, couldn't create a new LanguageIdentifier:", err)
-	}
+	cld := cld3.NewDefault()
 	defer cld.Free()
 
 	res := cld.FindLanguage("Hey, this is an english sentence")
