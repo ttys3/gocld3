@@ -29,11 +29,9 @@ var (
 	ErrMaxSmallerOrEqualToMin = errors.New("cld3: maxNumBytes passed to NewLanguageIdentifier must be larger than minNumBytes")
 )
 
-// NewDefault returns a LanguageIdentifier with default config: minNumBytes=140, maxNumBytes=700
-// const int NNetLanguageIdentifier::kMinNumBytesToConsider = 140;
-// const int NNetLanguageIdentifier::kMaxNumBytesToConsider = 700;
+// NewDefault returns a LanguageIdentifier with default config: minNumBytes=0, maxNumBytes=500
 func NewDefault() LanguageIdentifier {
-	return LanguageIdentifier{C.new_language_identifier_default()}
+	return LanguageIdentifier{C.new_language_identifier(C.int(0), C.int(500))}
 }
 
 // New returns a LanguageIdentifier. minNumBytes is the
