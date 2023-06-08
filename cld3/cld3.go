@@ -100,6 +100,7 @@ func (li LanguageIdentifier) FindTopNMostFreqLangs(text string, num int) []Resul
 		goResults[i].IsReliable = bool(result.is_reliable)
 		goResults[i].Proportion = float32(result.proportion)
 	}
+	C.free(unsafe.Pointer(cResults))
 
 	return goResults
 }
