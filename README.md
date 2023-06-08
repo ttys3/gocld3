@@ -14,7 +14,19 @@ Documentation is available on [GoDoc](https://godoc.org/github.com/ttys3/gocld3/
 ### Example
 
 ```go
-	cld := cld3.NewDefault()
+package main
+
+import (
+	"fmt"
+
+	"github.com/ttys3/gocld3/cld3"
+)
+
+func main() {
+	cld, err := cld3.New(0, 500)
+	if err != nil {
+		panic(err)
+	}
 	defer cld.Free()
 
 	res := cld.FindLanguage("Hey, this is an english sentence")
@@ -25,6 +37,10 @@ Documentation is available on [GoDoc](https://godoc.org/github.com/ttys3/gocld3/
 	if res.IsReliable {
 		fmt.Println("ah, and this one is", res.Language)
 	}
+
+	topLangs := cld.FindTopNMostFreqLangs("Hey, this is an english sentence 这是一段中文 ja こんいちは", 3)
+	fmt.Println("got topLangs: ", topLangs)
+}
   ```
 
 ### Build

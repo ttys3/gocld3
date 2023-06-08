@@ -29,6 +29,9 @@ var (
 	ErrMaxSmallerOrEqualToMin = errors.New("cld3: maxNumBytes passed to NewLanguageIdentifier must be larger than minNumBytes")
 )
 
+// NewDefault returns a LanguageIdentifier with default config: minNumBytes=140, maxNumBytes=700
+// const int NNetLanguageIdentifier::kMinNumBytesToConsider = 140;
+// const int NNetLanguageIdentifier::kMaxNumBytesToConsider = 700;
 func NewDefault() LanguageIdentifier {
 	return LanguageIdentifier{C.new_language_identifier_default()}
 }
@@ -37,7 +40,7 @@ func NewDefault() LanguageIdentifier {
 // minimum numbers of bytes to consider in the text before making a decision and
 // maxNumBytes is the maximum of the same. Chromium uses 0 and 512, respectively
 // for its i18n work. LanguageIdentifier must be deallocated explicitly with
-// FreeLanguageIdentifier.
+// Free().
 func New(minNumBytes, maxNumBytes int) (LanguageIdentifier, error) {
 	// We do these checks even though they exist in NNetLanguageIdentifier's
 	// constructor because the CLD3_CHECK calls cause inscrutable "illegal
