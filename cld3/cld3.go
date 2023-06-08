@@ -66,6 +66,8 @@ func (li LanguageIdentifier) FindLanguage(text string) Result {
 	res := C.find_language(li.li, cs, C.int(len(text)))
 	r := Result{}
 	r.Language = C.GoStringN(res.language, res.len_language)
+	C.free(unsafe.Pointer(res.language))
+
 	r.Probability = float32(res.probability)
 	r.IsReliable = bool(res.is_reliable)
 	r.Proportion = float32(res.proportion)
@@ -93,6 +95,7 @@ func (li LanguageIdentifier) FindTopNMostFreqLangs(text string, num int) []Resul
 		result := *(*C.Result)(unsafe.Pointer(uintptr(unsafe.Pointer(cResults)) + uintptr(i)*unsafe.Sizeof(C.Result{})))
 
 		goResults[i].Language = C.GoStringN(result.language, result.len_language)
+		C.free(unsafe.Pointer(result.language))
 		goResults[i].Probability = float32(result.probability)
 		goResults[i].IsReliable = bool(result.is_reliable)
 		goResults[i].Proportion = float32(result.proportion)
